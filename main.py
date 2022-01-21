@@ -3,6 +3,8 @@ import speech_recognition as sr
 import pyttsx3 as tts
 import sys
 
+from sympy import ff
+
 
 recognizer = sr.Recognizer()
 
@@ -10,7 +12,7 @@ speaker = tts.init()
 speaker.setProperty("rate", 150)
 
 todo_list = ["Work", "Learn", "Sleep"]
-todo_schedule = [
+schedule_list = [
     "Dinner appointment at 6 am saturday",
     "work meeting at 11 AM sunday twenty third",
 ]
@@ -97,7 +99,13 @@ def show_todos():
 
 def hello():
 
-    speaker.say("Hello, What can I do for you?")
+    speaker.say("hello Sir!, Welcome aboard, and what can I do for you sir?")
+    speaker.runAndWait()
+
+
+def master():
+
+    speaker.say("hello Sir!, youre Daniel and you are my master!")
     speaker.runAndWait()
 
 
@@ -127,7 +135,7 @@ def schedule():
                 schedule = recognizer.recognize_google(audio)
                 schedule = schedule.lower()
 
-                todo_schedule.append(schedule)
+                schedule_list.append(schedule)
                 done = True
 
                 speaker.say(f"I added {schedule} to your schedule sir!")
@@ -139,6 +147,14 @@ def schedule():
             speaker.runAndWait()
 
 
+def show_schedule():
+
+    speaker.say("The items on your to do list are the following")
+    for schedule in schedule_list:
+        speaker.say(schedule)
+    speaker.runAndWait()
+
+
 mappings = {
     "greeting": hello,
     "create_note": create_note,
@@ -146,6 +162,8 @@ mappings = {
     "show_todos": show_todos,
     "exit": quit,
     "schedule": schedule,
+    "show_schedule": show_schedule,
+    "master": master,
 }
 
 
@@ -167,3 +185,4 @@ while True:
         assistant.request(message)
     except sr.UnknownValueError:
         recognizer = sr.Recognizer()
+

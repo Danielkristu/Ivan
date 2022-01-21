@@ -1,24 +1,40 @@
-{"intents": 
-
-  [
+{
+  "intents": [
     {
       "tag": "greeting",
       "patterns": ["hey", "hello", "Hi", "slavik"],
-      "responses": ["hello Sir!, Welcome aboard, and what can I do for you sir?"]
+      "responses": [
+        "hello Sir!, Welcome aboard, and what can I do for you sir?"
+      ]
     },
     {
       "tag": "create_note",
-      "patterns": ["please create a new note", "new note", "create a new note", "i want to create a note"],
+      "patterns": [
+        "please create a new note",
+        "new note",
+        "create a new note",
+        "i want to create a note"
+      ],
       "responses": [""]
     },
     {
       "tag": "add_todo",
-      "patterns": ["i Want to add todo", "add a new todo", "add this to my todo list", "make a new item for my todo list"],
+      "patterns": [
+        "i Want to add todo",
+        "add a new todo",
+        "add this to my todo list",
+        "make a new item for my todo list"
+      ],
       "responses": [""]
     },
     {
       "tag": "show_todos",
-      "patterns": ["Show my todos", "what are my todos slavik?", "check my todos", "read my todos list"],
+      "patterns": [
+        "Show my todos",
+        "what are my todos slavik?",
+        "check my todos",
+        "read my todos list"
+      ],
       "responses": [""]
     },
     {
@@ -28,9 +44,33 @@
     },
     {
       "tag": "schedule",
-      "patterns": ["can you make me schedule", "can you make me appointement", "can you add new schedule", "new schedule"],
+      "patterns": [
+        "can you make me schedule",
+        "can you make me appointement",
+        "can you add new schedule",
+        "new schedule"
+      ],
+      "responses": [""]
+    },
+    {
+      "tag": "show_schedule",
+      "patterns": [
+        "can you show my schedule",
+        "can you show my appointement",
+        "show my schedule",
+        "what is my schedule"
+      ],
+      "responses": [""]
+    },
+    {
+      "tag": "master",
+      "patterns": [
+        "what is my name slavik?",
+        "say my name!",
+        "do you remember me?",
+        "who is your master?"
+      ],
       "responses": [""]
     }
-
   ]
 }
