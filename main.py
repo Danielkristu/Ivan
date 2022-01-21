@@ -7,7 +7,7 @@ import sys
 recognizer = sr.Recognizer()
 
 speaker = tts.init()
-speaker.setProperty("rate", 180)
+speaker.setProperty("rate", 150)
 
 todo_list = ["Work", "Learn", "Sleep"]
 
@@ -24,7 +24,7 @@ def create_note():
         try:
 
             with sr.Microphone() as mic:
-                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                recognizer.adjust_for_ambient_noise(mic, duration=1)
                 audio = recognizer.listen(mic)
 
                 note = recognizer.recognize_google(audio)
@@ -33,7 +33,7 @@ def create_note():
                 speaker.say("Choose filename")
                 speaker.runAndWait()
 
-                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                recognizer.adjust_for_ambient_noise(mic, duration=1)
                 audio = recognizer.listen(mic)
 
                 filename = recognizer.recognize_google(audio)
@@ -65,7 +65,7 @@ def add_todo():
 
             with sr.Microphone() as mic:
 
-                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                recognizer.adjust_for_ambient_noise(mic, duration=1)
                 audio = recognizer.listen(mic)
 
                 item = recognizer.recognize_google(audio)
@@ -121,7 +121,7 @@ while True:
     try:
         with sr.Microphone() as mic:
 
-            recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+            recognizer.adjust_for_ambient_noise(mic, duration=1)
             audio = recognizer.listen(mic)
 
             message = recognizer.recognize_google(audio)
@@ -130,4 +130,3 @@ while True:
         assistant.request(message)
     except sr.UnknownValueError:
         recognizer = sr.Recognizer()
-
