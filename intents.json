@@ -25,6 +25,11 @@
       "tag": "exit",
       "patterns": ["bye", "thankyou", "goodbye", "i have to go"],
       "responses": [""]
+    },
+    {
+      "tag": "schedule",
+      "patterns": ["can you make me schedule", "can you make me appointement", "can you add new schedule", "new schedule"],
+      "responses": [""]
     }
 
   ]

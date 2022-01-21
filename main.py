@@ -10,6 +10,10 @@ speaker = tts.init()
 speaker.setProperty("rate", 150)
 
 todo_list = ["Work", "Learn", "Sleep"]
+todo_schedule = [
+    "Dinner appointment at 6 am saturday",
+    "work meeting at 11 AM sunday twenty third",
+]
 
 
 def create_note():
@@ -103,12 +107,45 @@ def quit():
     sys.exit(0)
 
 
+def schedule():
+
+    global recognizer
+
+    speaker.say("Yes sir!, What appointment do you wanna add?")
+    speaker.runAndWait()
+
+    done = False
+
+    while not done:
+        try:
+
+            with sr.Microphone() as mic:
+
+                recognizer.adjust_for_ambient_noise(mic, duration=1)
+                audio = recognizer.listen(mic)
+
+                schedule = recognizer.recognize_google(audio)
+                schedule = schedule.lower()
+
+                todo_schedule.append(schedule)
+                done = True
+
+                speaker.say(f"I added {schedule} to your schedule sir!")
+                speaker.runAndWait()
+
+        except sr.UnknownValueError:
+            recognizer = sr.Recognizer()
+            speaker.say("I did not understand, please try again!")
+            speaker.runAndWait()
+
+
 mappings = {
     "greeting": hello,
     "create_note": create_note,
     "add_todo": add_todo,
     "show_todos": show_todos,
     "exit": quit,
+    "schedule": schedule,
 }
 
 
