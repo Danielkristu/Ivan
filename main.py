@@ -104,7 +104,7 @@ def quit():
 
 
 mappings = {
-    "greetings": hello,
+    "greeting": hello,
     "create_note": create_note,
     "add_todo": add_todo,
     "show_todos": show_todos,
