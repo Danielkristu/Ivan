@@ -159,6 +159,12 @@ def rio():
     speaker.runAndWait()
 
 
+def arlene():
+
+    speaker.say("ofcourse i know him sir, he is atnanta, zefanya boyfriend")
+    speaker.runAndWait()
+
+
 mappings = {
     "greeting": hello,
     "create_note": create_note,
@@ -169,6 +175,7 @@ mappings = {
     "show_schedule": show_schedule,
     "master": master,
     "rios": rio,
+    "arlenes": arlene,
 }
 
 

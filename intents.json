@@ -76,6 +76,15 @@
       "tag": "rios",
       "patterns": ["who is rio?", "do you now rio?", "do you remember rio?"],
       "responses": [""]
+    },
+    {
+      "tag": "arlenes",
+      "patterns": [
+        "atnanta girlfriend?",
+        "do you now atnanta?",
+        "do you remember atnanta?"
+      ],
+      "responses": [""]
     }
   ]
 }
