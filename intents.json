@@ -2,7 +2,7 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": ["hey", "hello", "Hi", "Natalya"],
+      "patterns": [],
       "responses": [
         "hello Sir!, Welcome aboard, and what can I do for you sir?"
       ]
@@ -95,6 +95,49 @@
     {
       "tag": "misuh",
       "patterns": ["fuck", "shit", "anjing", "bangsat"],
+      "responses": [""]
+    },
+    {
+      "tag": "chrome",
+      "patterns": [
+        "open new tab",
+        "open chrome",
+        "chrome",
+        "open google",
+        "open google natalya"
+      ],
+      "responses": [""]
+    },
+    {
+      "tag": "youtube",
+      "patterns": [
+        "open youtube",
+        "can you open youtube for me",
+        "youtube",
+        "open youtube natalya"
+      ],
+      "responses": [""]
+    },
+    {
+      "tag": "spotify",
+      "patterns": [
+        "open spotify",
+        "can you open spotify for me",
+        "spotify",
+        "open spotify natalya",
+        "i wanna hear some music"
+      ],
+      "responses": [""]
+    },
+    {
+      "tag": "github",
+      "patterns": [
+        "open my github",
+        "can you open my github for me",
+        "github",
+        "open my github natalya",
+        "i wanna see my repositories"
+      ],
       "responses": [""]
     }
   ]

@@ -9,11 +9,10 @@ import webbrowser
 import os.path
 import smtplib
 
-
 recognizer = sr.Recognizer()
 speaker = tts.init("sapi5")
 current_time = datetime.now()
-speaker.setProperty("rate", 145)
+speaker.setProperty("rate", 155)
 voices = speaker.getProperty("voices")  # gets you the details of the current voices
 speaker.setProperty("voice", voices[1].id)
 
@@ -210,6 +209,32 @@ def misuh():
     speaker.runAndWait()
 
 
+def chrome():
+    speaker.say("openning google chrome")
+    speaker.runAndWait()
+    webbrowser.open("https://www.google.com")
+
+
+def youtube():
+    speaker.say("openning youtube dot com")
+    speaker.runAndWait()
+    webbrowser.open("https://www.youtube.com/")
+
+
+def spotify():
+    speaker.say("openning your spotify")
+    speaker.runAndWait()
+    webbrowser.open(
+        "https://open.spotify.com/?_ga=2.28794108.1978239638.1642874903-1887772350.1642739685"
+    )
+
+
+def github():
+    speaker.say("openning your github repository sir!")
+    speaker.runAndWait()
+    webbrowser.open("https://github.com/Danielies367")
+
+
 mappings = {
     "greeting": hello,
     "create_note": create_note,
@@ -223,6 +248,10 @@ mappings = {
     "dates": dates,
     "clocks": clocks,
     "misuh": misuh,
+    "chrome": chrome,
+    "youtube": youtube,
+    "spotify": spotify,
+    "github": github,
     "exit": quit,
 }
 
