@@ -1,4 +1,4 @@
-# slavik
+# Ivan
 
 AI Voice Assistant
 
