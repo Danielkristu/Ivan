@@ -153,6 +153,12 @@ def show_schedule():
     speaker.runAndWait()
 
 
+def rio():
+
+    speaker.say("i know him, he is RIO, fel tanu boyfriend")
+    speaker.runAndWait()
+
+
 mappings = {
     "greeting": hello,
     "create_note": create_note,
@@ -162,6 +168,7 @@ mappings = {
     "schedule": schedule,
     "show_schedule": show_schedule,
     "master": master,
+    "rios": rio,
 }
 
 

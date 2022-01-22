@@ -71,6 +71,11 @@
         "who is your master?"
       ],
       "responses": [""]
+    },
+    {
+      "tag": "rios",
+      "patterns": ["who is rio?", "do you now rio?", "do you remember rio?"],
+      "responses": [""]
     }
   ]
 }
