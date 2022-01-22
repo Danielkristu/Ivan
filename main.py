@@ -197,6 +197,7 @@ mappings = {
     "dates": dates,
     "clocks": clocks,
     "misuh": misuh,
+    "exit": quit,
 }
 
 
