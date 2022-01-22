@@ -1,4 +1,4 @@
-# Ivan
+# Natalya
 
 AI Voice Assistant
 

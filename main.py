@@ -4,19 +4,45 @@ import pyttsx3 as tts
 import datetime
 import sys
 from datetime import datetime
+import wikipedia
+import webbrowser
+import os.path
+import smtplib
 
 
 recognizer = sr.Recognizer()
-speaker = tts.init()
+speaker = tts.init("sapi5")
 current_time = datetime.now()
-speaker.setProperty("rate", 150)
-
+speaker.setProperty("rate", 145)
+voices = speaker.getProperty("voices")  # gets you the details of the current voices
+speaker.setProperty("voice", voices[1].id)
 
 todo_list = ["Work", "Learn", "Sleep"]
 schedule_list = [
     "Dinner appointment at 6 am saturday",
     "work meeting at 11 AM sunday twenty third",
 ]
+
+
+def speak(audio):  # function for assistant to speak
+    speaker.say(audio)
+    speaker.runAndWait()  # without this command, the assistant won't be audible to us
+
+
+def wishme():  # function to wish the user according to the daytime
+    hour = int(datetime.now().hour)
+    if hour >= 0 and hour < 12:
+        speak("Good Morning")
+
+    elif hour > 12 and hour < 18:
+        speak("Good Afternoon")
+
+    else:
+        speak("Good Evening")
+
+    speak(
+        "Hello Sir, I am Natalya, your Artificial intelligence assistant. Please tell me how may I help you"
+    )
 
 
 def create_note():
@@ -111,9 +137,9 @@ def master():
 
 
 def quit():
-    speaker.say("Thankyou, Goodbye")
+    speaker.say("Goodbye Sir!")
     speaker.runAndWait()
-    sys.exit(0)
+    sys.exit()
 
 
 def schedule():
@@ -180,7 +206,7 @@ def clocks():
 
 
 def misuh():
-    speaker.say("sorry sir that i have to disturb you!")
+    speaker.say("sorry motherfucker that i have to disturb you!")
     speaker.runAndWait()
 
 
@@ -203,7 +229,7 @@ mappings = {
 
 assistant = GenericAssistant("intents.json", intent_methods=mappings)
 assistant.train_model()
-
+wishme()
 
 while True:
 

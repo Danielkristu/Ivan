@@ -2,7 +2,7 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": ["hey", "hello", "Hi", "ivan"],
+      "patterns": ["hey", "hello", "Hi", "Natalya"],
       "responses": [
         "hello Sir!, Welcome aboard, and what can I do for you sir?"
       ]
@@ -31,7 +31,7 @@
       "tag": "show_todos",
       "patterns": [
         "Show my todos",
-        "what are my todos ivan?",
+        "what are my todos Natalya?",
         "check my todos",
         "read my todos list"
       ],
@@ -39,7 +39,7 @@
     },
     {
       "tag": "exit",
-      "patterns": ["bye", "thankyou", "goodbye", "i have to go"],
+      "patterns": ["bye", "thankyou", "goodbye", "i have to go", "shut up"],
       "responses": [""]
     },
     {
@@ -65,7 +65,7 @@
     {
       "tag": "master",
       "patterns": [
-        "what is my name ivan?",
+        "what is my name Natalya?",
         "say my name!",
         "do you remember me?",
         "who is your master?"
