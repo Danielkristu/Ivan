@@ -79,11 +79,7 @@
     },
     {
       "tag": "arlenes",
-      "patterns": [
-        "atnanta girlfriend?",
-        "do you now atnanta?",
-        "do you remember atnanta?"
-      ],
+      "patterns": ["atnanta girlfriend?", "do you now atnanta?"],
       "responses": [""]
     }
   ]
