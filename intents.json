@@ -2,7 +2,7 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": ["hey", "hello", "Hi", "slavik"],
+      "patterns": ["hey", "hello", "Hi", "ivan"],
       "responses": [
         "hello Sir!, Welcome aboard, and what can I do for you sir?"
       ]
@@ -31,7 +31,7 @@
       "tag": "show_todos",
       "patterns": [
         "Show my todos",
-        "what are my todos slavik?",
+        "what are my todos ivan?",
         "check my todos",
         "read my todos list"
       ],
@@ -65,7 +65,7 @@
     {
       "tag": "master",
       "patterns": [
-        "what is my name slavik?",
+        "what is my name ivan?",
         "say my name!",
         "do you remember me?",
         "who is your master?"

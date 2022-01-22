@@ -147,7 +147,7 @@ def schedule():
 
 def show_schedule():
 
-    speaker.say("The items on your to do list are the following")
+    speaker.say("This is your schedule sir")
     for schedule in schedule_list:
         speaker.say(schedule)
     speaker.runAndWait()
