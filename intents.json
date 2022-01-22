@@ -79,7 +79,22 @@
     },
     {
       "tag": "arlenes",
-      "patterns": ["atnanta girlfriend?", "do you now atnanta?"],
+      "patterns": ["do you know atnanta girlfriend?", "do you now atnanta?"],
+      "responses": [""]
+    },
+    {
+      "tag": "dates",
+      "patterns": ["what day is it?", "do you know what date is today?"],
+      "responses": [""]
+    },
+    {
+      "tag": "clocks",
+      "patterns": ["what time is it?", "do you know what time is it?"],
+      "responses": [""]
+    },
+    {
+      "tag": "misuh",
+      "patterns": ["fuck", "shit", "anjing", "bangsat"],
       "responses": [""]
     }
   ]

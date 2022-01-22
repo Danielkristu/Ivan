@@ -1,13 +1,16 @@
 from neuralintents import GenericAssistant
 import speech_recognition as sr
 import pyttsx3 as tts
+import datetime
 import sys
+from datetime import datetime
 
 
 recognizer = sr.Recognizer()
-
 speaker = tts.init()
+current_time = datetime.now()
 speaker.setProperty("rate", 150)
+
 
 todo_list = ["Work", "Learn", "Sleep"]
 schedule_list = [
@@ -103,7 +106,7 @@ def hello():
 
 def master():
 
-    speaker.say("hello Sir!, youre Daniel and you are my master!")
+    speaker.say("youre Daniel! and you are my master!")
     speaker.runAndWait()
 
 
@@ -165,6 +168,22 @@ def arlene():
     speaker.runAndWait()
 
 
+def dates():
+
+    speaker.say(datetime.date(datetime.now()))
+    speaker.runAndWait()
+
+
+def clocks():
+    speaker.say(f"its, {current_time.hour} and {current_time.minute} minutes")
+    speaker.runAndWait()
+
+
+def misuh():
+    speaker.say("sorry sir that i have to disturb you!")
+    speaker.runAndWait()
+
+
 mappings = {
     "greeting": hello,
     "create_note": create_note,
@@ -175,6 +194,9 @@ mappings = {
     "master": master,
     "rios": rio,
     "arlenes": arlene,
+    "dates": dates,
+    "clocks": clocks,
+    "misuh": misuh,
 }
 
 
