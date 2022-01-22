@@ -170,7 +170,6 @@ mappings = {
     "create_note": create_note,
     "add_todo": add_todo,
     "show_todos": show_todos,
-    "exit": quit,
     "schedule": schedule,
     "show_schedule": show_schedule,
     "master": master,
