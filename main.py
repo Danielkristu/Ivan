@@ -224,9 +224,7 @@ def youtube():
 def spotify():
     speaker.say("openning your spotify")
     speaker.runAndWait()
-    webbrowser.open(
-        "https://open.spotify.com/?_ga=2.28794108.1978239638.1642874903-1887772350.1642739685"
-    )
+    webbrowser.open("https://open.spotify.com/")
 
 
 def github():
