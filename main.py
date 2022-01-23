@@ -305,7 +305,7 @@ def func():
             "show my to do" in query
             or "what are my to do natalya?" in query
             or "check my to do" in query
-            or "read my todo list" in query
+            or "read my to do list" in query
         ):
             speak("The items on your to do list are the following")
             for item in todo_list:
@@ -401,7 +401,7 @@ if __name__ == "__main__":
             speak("I am back online sir")
             func()
         elif "goodbye" in permission:
-            sys.exit()
+            quit()
 
 
 while True:
