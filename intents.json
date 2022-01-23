@@ -139,6 +139,11 @@
         "i wanna see my repositories"
       ],
       "responses": [""]
+    },
+    {
+      "tag": "search",
+      "patterns": ["I wanna search"],
+      "responses": [""]
     }
   ]
 }

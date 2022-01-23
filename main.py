@@ -1,3 +1,4 @@
+from turtle import delay
 from neuralintents import GenericAssistant
 import speech_recognition as sr
 import pyttsx3 as tts
@@ -8,6 +9,7 @@ import wikipedia
 import webbrowser
 import os.path
 import smtplib
+from pywikihow import search_wikihow
 
 recognizer = sr.Recognizer()
 speaker = tts.init("sapi5")
@@ -42,6 +44,30 @@ def wishme():  # function to wish the user according to the daytime
     speak(
         "Hello Sir, I am Natalya, your Artificial intelligence assistant. Please tell me how may I help you"
     )
+
+
+def listens():
+    global recognizer
+    done = False
+
+    while not done:
+        try:
+
+            with sr.Microphone() as mic:
+
+                recognizer.adjust_for_ambient_noise(mic, duration=1)
+                audio = recognizer.listen(mic)
+
+                listen = recognizer.recognize_google(audio)
+                listen = listen.lower()
+
+                done = True
+
+                speak("wait a second sir!")
+
+        except sr.UnknownValueError:
+            recognizer = sr.Recognizer()
+            speak("I did not understand, please try again!")
 
 
 def create_note():
@@ -126,8 +152,12 @@ def master():
 
 
 def quit():
-    speak("Goodbye Sir!")
-    sys.exit()
+    speak("are you sure sir?, all list will be lost!")
+    if "yes" in takecommand():
+        speak("Goodbye Sir!")
+        sys.exit()
+    elif "no" in takecommand():
+        speak("affimartive, cancelling shut down")
 
 
 def schedule():
@@ -209,30 +239,170 @@ def github():
     webbrowser.open("https://github.com/Danielies367")
 
 
-mappings = {
-    "greeting": hello,
-    "create_note": create_note,
-    "add_todo": add_todo,
-    "show_todos": show_todos,
-    "schedule": schedule,
-    "show_schedule": show_schedule,
-    "master": master,
-    "rios": rio,
-    "arlenes": arlene,
-    "dates": dates,
-    "clocks": clocks,
-    "misuh": misuh,
-    "chrome": chrome,
-    "youtube": youtube,
-    "spotify": spotify,
-    "github": github,
-    "exit": quit,
-}
+def takecommand():
+
+    global recognizer
+    done = False
+
+    while not done:
+        try:
+
+            with sr.Microphone() as mic:
+
+                print("listening")
+                recognizer.adjust_for_ambient_noise(mic, duration=1)
+                audio = recognizer.listen(mic)
+
+                listen = recognizer.recognize_google(audio)
+                listen = listen.lower()
+                print(f"{listen}")
+                print("recognizing")
+                done = True
+
+        except sr.UnknownValueError:
+
+            recognizer = sr.Recognizer()
+            return "none"
+        return listen
 
 
-assistant = GenericAssistant("intents.json", intent_methods=mappings)
+def func():
+
+    while True:
+        query = takecommand()
+
+        if "sleep now" in query:
+            speak("okay sir, you can call me anytime!")
+            break
+        elif "wake up natalia" in query or "wake up" in query:
+            speak("i am already online sir!")
+
+        elif (
+            "please create a new note" in query
+            or "new note" in query
+            or "create a new note" in query
+            or "i want to create a note" in query
+        ):
+            create_note()
+
+        elif (
+            "shut up" in query
+            or "thankyou" in query
+            or "goodbye" in query
+            or "i have to go" in query
+        ):
+            quit()
+
+        elif (
+            "i want to at to do" in query
+            or "at a new to do" in query
+            or "at this to my to do list" in query
+            or "make a new item for my to do list" in query
+        ):
+            add_todo()
+
+        elif (
+            "show my to do" in query
+            or "what are my to do natalya?" in query
+            or "check my to do" in query
+            or "read my todo list" in query
+        ):
+            speak("The items on your to do list are the following")
+            for item in todo_list:
+                speak(item)
+
+        elif (
+            "can you make me schedule" in query
+            or "can you make me appointment" in query
+            or "can you add new schedule" in query
+            or "new schedule" in query
+        ):
+            schedule()
+
+        elif (
+            "can you show my schedule" in query
+            or "can you show my appointment" in query
+            or "show my schedule" in query
+            or "what is my schedule" in query
+        ):
+            show_schedule()
+
+        elif (
+            "what is my name Natalya" in query
+            or "say my name" in query
+            or "do you remember me" in query
+            or "who is your master" in query
+        ):
+            master()
+
+        elif (
+            "who is rio" in query
+            or "do you now rio" in query
+            or "do you remember rio" in query
+        ):
+            rio()
+
+        elif (
+            "do you know atnanta girlfriend" in query
+            or "do you now atnanta" in query
+            or "girlfriend" in query
+        ):
+            arlene()
+
+        elif "what day is it" in query or "do you know what date is today" in query:
+            dates()
+
+        elif "what time is it" in query or "do you know what time is it" in query:
+            clocks()
+
+        elif (
+            "open new tab" in query
+            or "open chrome" in query
+            or "chrome" in query
+            or "open google natalya" in query
+        ):
+            chrome()
+
+        elif (
+            "open youtube" in query
+            or "can you open youtube for me" in query
+            or "youtube" in query
+            or "open youtube natalya" in query
+        ):
+            youtube()
+
+        elif (
+            "open spotify" in query
+            or "can you open spotify for me" in query
+            or "spotify" in query
+            or "open spotify natalya" in query
+            or "i want to hear some music" in query
+        ):
+            spotify()
+
+        elif (
+            "open my github" in query
+            or "github" in query
+            or "open my github natalya" in query
+            or "i want to see my repositories" in query
+        ):
+            github()
+
+
+assistant = GenericAssistant("intents.json")
 assistant.train_model()
+
 wishme()
+func()
+if __name__ == "__main__":
+    while True:
+        permission = takecommand()
+        if "wake up" in permission:
+            speak("I am back online sir")
+            func()
+        elif "goodbye" in permission:
+            sys.exit()
+
 
 while True:
 
@@ -248,4 +418,3 @@ while True:
         assistant.request(message)
     except sr.UnknownValueError:
         recognizer = sr.Recognizer()
-
