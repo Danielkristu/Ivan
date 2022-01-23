@@ -47,8 +47,7 @@ def wishme():  # function to wish the user according to the daytime
 def create_note():
     global recognizer
 
-    speaker.say("What do you want to write sir?")
-    speaker.runAndWait()
+    speak("What do you want to write sir?")
 
     done = False
 
@@ -62,8 +61,7 @@ def create_note():
                 note = recognizer.recognize_google(audio)
                 note = note.lower()
 
-                speaker.say("Choose filename")
-                speaker.runAndWait()
+                speak("Choose filename")
 
                 recognizer.adjust_for_ambient_noise(mic, duration=1)
                 audio = recognizer.listen(mic)
@@ -74,21 +72,18 @@ def create_note():
             with open(filename, "w") as f:
                 f.write(note)
                 done = True
-                speaker.say(f"I Successfully created the note {filename}")
-                speaker.runAndWait()
+                speak(f"I Successfully created the note {filename}")
 
         except sr.UnknownValueError:
             recognizer = sr.Recognizer()
-            speaker.say("I did not understand you! Please try again!")
-            speaker.runAndWait()
+            speak("I did not understand you! Please try again!")
 
 
 def add_todo():
 
     global recognizer
 
-    speaker.say(" What todo do you want to add?")
-    speaker.runAndWait()
+    speak(" What todo do you want to add?")
 
     done = False
 
@@ -106,38 +101,32 @@ def add_todo():
                 todo_list.append(item)
                 done = True
 
-                speaker.say(f"I added {item} to the to do list!")
-                speaker.runAndWait()
+                speak(f"I added {item} to the to do list!")
 
         except sr.UnknownValueError:
             recognizer = sr.Recognizer()
-            speaker.say("I did not understand, please try again!")
-            speaker.runAndWait()
+            speak("I did not understand, please try again!")
 
 
 def show_todos():
 
-    speaker.say("The items on your to do list are the following")
+    speak("The items on your to do list are the following")
     for item in todo_list:
-        speaker.say(item)
-    speaker.runAndWait()
+        speak(item)
 
 
 def hello():
 
-    speaker.say("hello Sir!, Welcome aboard, and what can I do for you sir?")
-    speaker.runAndWait()
+    speak("hello Sir!, Welcome aboard, and what can I do for you sir?")
 
 
 def master():
 
-    speaker.say("youre Daniel! and you are my master!")
-    speaker.runAndWait()
+    speak("youre Daniel! and you are my master!")
 
 
 def quit():
-    speaker.say("Goodbye Sir!")
-    speaker.runAndWait()
+    speak("Goodbye Sir!")
     sys.exit()
 
 
@@ -145,8 +134,7 @@ def schedule():
 
     global recognizer
 
-    speaker.say("Yes sir!, What appointment do you wanna add?")
-    speaker.runAndWait()
+    speak("Yes sir!, What appointment do you wanna add?")
 
     done = False
 
@@ -164,72 +152,60 @@ def schedule():
                 schedule_list.append(schedule)
                 done = True
 
-                speaker.say(f"I added {schedule} to your schedule sir!")
-                speaker.runAndWait()
+                speak(f"I added {schedule} to your schedule sir!")
 
         except sr.UnknownValueError:
             recognizer = sr.Recognizer()
-            speaker.say("I did not understand, please try again!")
-            speaker.runAndWait()
+            speak("I did not understand, please try again!")
 
 
 def show_schedule():
 
-    speaker.say("This is your schedule sir")
+    speak("This is your schedule sir")
     for schedule in schedule_list:
-        speaker.say(schedule)
-    speaker.runAndWait()
+        speak(schedule)
 
 
 def rio():
 
-    speaker.say("i know him, he is RIO, fel tanu boyfriend")
-    speaker.runAndWait()
+    speak("i know him, he is RIO, fel tanu boyfriend")
 
 
 def arlene():
 
-    speaker.say("ofcourse i know him sir, he is atnanta, zefanya boyfriend")
-    speaker.runAndWait()
+    speak("ofcourse i know him sir, he is atnanta, zefanya boyfriend")
 
 
 def dates():
 
-    speaker.say(datetime.date(datetime.now()))
-    speaker.runAndWait()
+    speak(datetime.date(datetime.now()))
 
 
 def clocks():
-    speaker.say(f"its, {current_time.hour} and {current_time.minute} minutes")
-    speaker.runAndWait()
+    speak(f"its, {current_time.hour} and {current_time.minute} minutes")
 
 
 def misuh():
-    speaker.say("sorry motherfucker that i have to disturb you!")
-    speaker.runAndWait()
+    speak("sorry motherfucker that i have to disturb you!")
 
 
 def chrome():
-    speaker.say("openning google chrome")
-    speaker.runAndWait()
+    speak("openning google chrome")
     webbrowser.open("https://www.google.com")
 
 
 def youtube():
-    speaker.say("openning youtube dot com")
-    speaker.runAndWait()
+    speak("openning youtube dot com")
     webbrowser.open("https://www.youtube.com/")
 
 
 def spotify():
-    speaker.say("openning your spotify")
-    speaker.runAndWait()
+    speak("openning your spotify")
     webbrowser.open("https://open.spotify.com/")
 
 
 def github():
-    speaker.say("openning your github repository sir!")
-    speaker.runAndWait()
+    speak("openning your github repository sir!")
     webbrowser.open("https://github.com/Danielies367")
 
 
