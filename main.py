@@ -1,4 +1,3 @@
-from turtle import delay
 from neuralintents import GenericAssistant
 import speech_recognition as sr
 import pyttsx3 as tts
@@ -7,14 +6,18 @@ import sys
 from datetime import datetime
 import wikipedia
 import webbrowser
-import os.path
+import os
 import smtplib
 from pywikihow import search_wikihow
+import keyboard
+import time
+import requests, json
+from bs4 import BeautifulSoup
 
 recognizer = sr.Recognizer()
-speaker = tts.init("sapi5")
+speaker = tts.init()
 current_time = datetime.now()
-speaker.setProperty("rate", 155)
+speaker.setProperty("rate", 170)
 voices = speaker.getProperty("voices")  # gets you the details of the current voices
 speaker.setProperty("voice", voices[1].id)
 
@@ -33,16 +36,16 @@ def speak(audio):  # function for assistant to speak
 def wishme():  # function to wish the user according to the daytime
     hour = int(datetime.now().hour)
     if hour >= 0 and hour < 12:
-        speak("Good Morning")
+        speak("Good Morning Sir")
 
     elif hour > 12 and hour < 18:
-        speak("Good Afternoon")
+        speak("Good Afternoon Sir")
 
     else:
-        speak("Good Evening")
+        speak("Good Evening Sir")
 
     speak(
-        "Hello Sir, I am Natalya, your Artificial intelligence assistant. Please tell me how may I help you"
+        "I am Natalia, your Artificial intelligence assistant. Please tell me how may I help you"
     )
 
 
@@ -152,7 +155,7 @@ def master():
 
 
 def quit():
-    speak("are you sure sir?, all list will be lost!")
+    speak("are you sure sir?, all program will be lost!")
     if "yes" in takecommand():
         speak("Goodbye Sir!")
         sys.exit()
@@ -206,6 +209,11 @@ def arlene():
     speak("ofcourse i know him sir, he is atnanta, zefanya boyfriend")
 
 
+def gordon():
+
+    speak("oh, i know he is gordon, rios best friend!")
+
+
 def dates():
 
     speak(datetime.date(datetime.now()))
@@ -221,7 +229,7 @@ def misuh():
 
 def chrome():
     speak("openning google chrome")
-    webbrowser.open("https://www.google.com")
+    os.startfile("C:\Program Files\Google\Chrome\Application\chrome.exe")
 
 
 def youtube():
@@ -230,8 +238,18 @@ def youtube():
 
 
 def spotify():
-    speak("openning your spotify")
-    webbrowser.open("https://open.spotify.com/")
+    query = takecommand()
+    if "open spotify" in query or "i want to hear some music" in query:
+        speak("openning your spotify")
+        os.system("spotify")
+        time.sleep(4)
+        keyboard.press("space bar")
+
+    elif "start spotify" in query or "stop spotify" in query:
+        keyboard.press("space bar")
+
+    elif "close spotify" in query:
+        os.system("TASKKILL /F /IM spotify.exe")
 
 
 def github():
@@ -249,14 +267,14 @@ def takecommand():
 
             with sr.Microphone() as mic:
 
-                print("listening")
+                print("listening.....")
                 recognizer.adjust_for_ambient_noise(mic, duration=1)
                 audio = recognizer.listen(mic)
 
                 listen = recognizer.recognize_google(audio)
                 listen = listen.lower()
                 print(f"{listen}")
-                print("recognizing")
+                print("recognizing.....")
                 done = True
 
         except sr.UnknownValueError:
@@ -271,10 +289,10 @@ def func():
     while True:
         query = takecommand()
 
-        if "sleep now" in query:
+        if "sleep now" in query or "sleep" in query:
             speak("okay sir, you can call me anytime!")
             break
-        elif "wake up natalia" in query or "wake up" in query:
+        elif "wake up natalia" in query or "wake up" in query or "natalia" in query:
             speak("i am already online sir!")
 
         elif (
@@ -349,16 +367,31 @@ def func():
         ):
             arlene()
 
-        elif "what day is it" in query or "do you know what date is today" in query:
+        elif (
+            "do you know gordon best friend" in query
+            or "do you know gordon" in query
+            or "best friend" in query
+        ):
+            gordon()
+
+        elif (
+            "what day is it" in query
+            or "do you know what date is today" in query
+            or "day" in query
+        ):
             dates()
 
-        elif "what time is it" in query or "do you know what time is it" in query:
+        elif (
+            "what time is it" in query
+            or "do you know what time is it" in query
+            or "time" in query
+        ):
             clocks()
 
         elif (
             "open new tab" in query
             or "open chrome" in query
-            or "chrome" in query
+            or "google" in query
             or "open google natalya" in query
         ):
             chrome()
@@ -374,11 +407,21 @@ def func():
         elif (
             "open spotify" in query
             or "can you open spotify for me" in query
-            or "spotify" in query
             or "open spotify natalya" in query
             or "i want to hear some music" in query
         ):
-            spotify()
+            speak("openning your spotify")
+            os.system("spotify")
+            time.sleep(4)
+            keyboard.press("space bar")
+
+        elif "start spotify" in query or "stop spotify" in query:
+            os.system("spotify")
+            keyboard.press("space bar")
+
+        elif "close spotify" in query:
+            speak("closing")
+            os.system("TASKKILL /F /IM spotify.exe")
 
         elif (
             "open my github" in query
@@ -388,16 +431,37 @@ def func():
         ):
             github()
 
+        elif "temperature" in query:
+            speak("which city do you want to know sir")
+            city = takecommand().lower()
+            search = f"weather in {city}"
+            url = f"https://www.google.com/search?q={search}"
+            r = requests.get(url)
+            data = BeautifulSoup(r.text, "html.parser")
+            temp = data.find("div", class_="BNeawe").text
+            speak(f"current {search} is {temp}")
 
-assistant = GenericAssistant("intents.json")
-assistant.train_model()
+        elif (
+            "open tik-tok" in query
+            or "tik-tok" in query
+            or "open tik-tok natalya" in query
+        ):
+            speak("openning your tik tok")
+            os.system("TikTok")
+
+        elif "close tik tok" in query:
+            speak("closing")
+            os.system("TASKKILL /F /IM tiktok.exe")
+
 
 wishme()
 func()
+
+
 if __name__ == "__main__":
     while True:
         permission = takecommand()
-        if "wake up" in permission:
+        if "wake up" in permission or "natalia" in permission:
             speak("I am back online sir")
             func()
         elif "goodbye" in permission:
@@ -414,7 +478,5 @@ while True:
 
             message = recognizer.recognize_google(audio)
             message = message.lower()
-
-        assistant.request(message)
     except sr.UnknownValueError:
         recognizer = sr.Recognizer()
