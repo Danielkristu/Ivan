@@ -11,7 +11,7 @@ import smtplib
 from pywikihow import search_wikihow
 import keyboard
 import time
-import requests, json
+import requests
 from bs4 import BeautifulSoup
 
 recognizer = sr.Recognizer()
@@ -233,7 +233,7 @@ def chrome():
 
 
 def youtube():
-    speak("openning youtube dot com")
+    speak("openning youtube")
     webbrowser.open("https://www.youtube.com/")
 
 
@@ -289,10 +289,7 @@ def func():
     while True:
         query = takecommand()
 
-        if "sleep now" in query or "sleep" in query:
-            speak("okay sir, you can call me anytime!")
-            break
-        elif "wake up natalia" in query or "wake up" in query or "natalia" in query:
+        if "wake up natalia" in query or "wake up" in query:
             speak("i am already online sir!")
 
         elif (
@@ -388,10 +385,13 @@ def func():
         ):
             clocks()
 
+        elif "close google" in query:
+            speak("closing")
+            os.system("TASKKILL /F /IM chrome.exe")
+
         elif (
             "open new tab" in query
-            or "open chrome" in query
-            or "google" in query
+            or "open google" in query
             or "open google natalya" in query
         ):
             chrome()
@@ -416,8 +416,15 @@ def func():
             keyboard.press("space bar")
 
         elif "start spotify" in query or "stop spotify" in query:
-            os.system("spotify")
             keyboard.press("space bar")
+
+        elif "volume up" in query:
+            os.system("spotify")
+            keyboard.press("ctrl + up arrow")
+
+        elif "volume down" in query:
+            os.system("spotify")
+            keyboard.press("ctrl + down arrow")
 
         elif "close spotify" in query:
             speak("closing")
@@ -453,6 +460,31 @@ def func():
             speak("closing")
             os.system("TASKKILL /F /IM tiktok.exe")
 
+        elif "close zoom" in query:
+            speak("closing")
+            os.system("TASKKILL /F /IM Zoom.exe")
+
+        elif (
+            "open zoom" in query
+            or "i want to start meeting" in query
+            or "start meeting" in query
+        ):
+            os.system("Zoom_launcher")
+
+        elif "search" in query:
+            speak("what do you want to search sir")
+            searchs = takecommand().lower()
+            search = f"{searchs}"
+            url = f"https://www.google.com/search?q={search}"
+            r = requests.get(url)
+            data = BeautifulSoup(r.content, "html5lib")
+            answer = data.find("div")
+            speak(f"{answer}")
+
+        elif "sleep now" in query or "sleep" in query:
+            speak("okay sir, you can call me anytime!")
+            break
+
 
 wishme()
 func()
@@ -466,17 +498,3 @@ if __name__ == "__main__":
             func()
         elif "goodbye" in permission:
             quit()
-
-
-while True:
-
-    try:
-        with sr.Microphone() as mic:
-
-            recognizer.adjust_for_ambient_noise(mic, duration=1)
-            audio = recognizer.listen(mic)
-
-            message = recognizer.recognize_google(audio)
-            message = message.lower()
-    except sr.UnknownValueError:
-        recognizer = sr.Recognizer()
