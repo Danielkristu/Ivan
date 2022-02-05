@@ -1,3 +1,4 @@
+from pyexpat.errors import messages
 from neuralintents import GenericAssistant
 import speech_recognition as sr
 import pyttsx3 as tts
@@ -13,6 +14,10 @@ import keyboard
 import time
 import requests
 from bs4 import BeautifulSoup
+from googlesearch import search
+import cv2
+import numpy as np
+import pyautogui
 
 recognizer = sr.Recognizer()
 speaker = tts.init()
@@ -20,6 +25,8 @@ current_time = datetime.now()
 speaker.setProperty("rate", 170)
 voices = speaker.getProperty("voices")  # gets you the details of the current voices
 speaker.setProperty("voice", voices[1].id)
+gsearch = search
+cam = cv2.VideoCapture(3)
 
 todo_list = ["Work", "Learn", "Sleep"]
 schedule_list = [
@@ -49,7 +56,8 @@ def wishme():  # function to wish the user according to the daytime
     )
 
 
-def listens():
+def source():
+
     global recognizer
     done = False
 
@@ -157,17 +165,17 @@ def master():
 def quit():
     speak("are you sure sir?, all program will be lost!")
     if "yes" in takecommand():
-        speak("Goodbye Sir!")
+        speak("okay sir, i will close the program")
         sys.exit()
-    elif "no" in takecommand():
-        speak("affimartive, cancelling shut down")
+    else:
+        speak("okay sir, i will continue the program")
 
 
 def schedule():
 
     global recognizer
 
-    speak("Yes sir!, What appointment do you wanna add?")
+    speak("What do you want to do sir?")
 
     done = False
 
@@ -194,7 +202,7 @@ def schedule():
 
 def show_schedule():
 
-    speak("This is your schedule sir")
+    speak("The items on your schedule are the following")
     for schedule in schedule_list:
         speak(schedule)
 
@@ -212,11 +220,6 @@ def arlene():
 def gordon():
 
     speak("oh, i know he is gordon, rios best friend!")
-
-
-def dates():
-
-    speak(datetime.date(datetime.now()))
 
 
 def clocks():
@@ -240,7 +243,7 @@ def youtube():
 def spotify():
     query = takecommand()
     if "open spotify" in query or "i want to hear some music" in query:
-        speak("openning your spotify")
+        speak("opening spotify")
         os.system("spotify")
         time.sleep(4)
         keyboard.press("space bar")
@@ -255,6 +258,210 @@ def spotify():
 def github():
     speak("openning your github repository sir!")
     webbrowser.open("https://github.com/Danielies367")
+
+
+"""show real time clock"""
+
+
+def clock():
+    while True:
+        current_time = datetime.now()
+        print(current_time.hour, ":", current_time.minute, ":", current_time.second)
+        speak(f"its, {current_time.hour} and {current_time.minute} minutes")
+        time.sleep(1)
+        break
+
+
+"""show date"""
+
+
+def date():
+    while True:
+        print(datetime.date(datetime.now()))
+        speak(datetime.date(datetime.now()))
+        time.sleep(1)
+        break
+
+
+"""show my files"""
+
+
+def my_files():
+    os.startfile("D:\Eagleies\SLAVIK AI Project")
+
+
+"""open camera"""
+
+
+def camera():
+    speak("opening camera")
+    os.system("start microsoft.windows.camera:")
+
+
+"""close camera"""
+
+
+def close_camera():
+    os.system("TASKKILL /F /IM microsoft.windows.camera:")
+
+
+"""open google classroom"""
+
+
+def classroom():
+    speak("opening google classroom")
+    os.system("start chrome https://classroom.google.com/")
+
+
+"""open notepad"""
+
+
+def notepad():
+    speak("opening notepad")
+    os.system("start notepad")
+
+
+"""close notepad"""
+
+
+def close_notepad():
+    speak("closing notepad")
+    os.system("TASKKILL /F /IM notepad.exe")
+
+
+"""search in google"""
+
+
+def searchss():
+    query = takecommand()
+    if "search" in query:
+        speak("what do you want to search sir?")
+        query = takecommand()
+        webbrowser.open(f"https://www.google.com/search?q={query}")
+        speak(f"Here is what i found for {query}")
+
+
+"""open discord"""
+
+
+def discord():
+    speak("opening discord")
+    os.system("start chrome https://discord.com/")
+
+
+"""close discord"""
+
+
+def close_discord():
+    speak("closing discord")
+    os.system("TASKKILL /F /IM discord.exe")
+
+
+"""take a photo"""
+
+
+def photo():
+    speak("opening camera")
+    os.system("start microsoft.windows.camera:")
+    speak("taking photo")
+    time.sleep(3)
+    keyboard.press("space bar")
+    time.sleep(3)
+    keyboard.press("enter")
+
+
+"""make a note"""
+
+
+def note():
+    speak("what do you want to note sir?")
+    note = takecommand()
+    file = open("note.txt", "w")
+    file.write(note)
+    file.close()
+    speak("note created")
+
+
+"""show note"""
+
+
+def show_note():
+    file = open("note.txt", "r")
+    print(file.read())
+    speak(file.read())
+    file.close()
+
+
+"""delete note"""
+
+
+def delete_note():
+    file = open("note.txt", "w")
+    file.close()
+    speak("note deleted")
+
+
+"""build an alarm clock"""
+
+
+def alarm():
+    speak("what time do you want to set the alarm?")
+    time = takecommand()
+    time = time.split(":")
+    hour = int(time[0])
+    minute = int(time[2])
+    speak("do you want to set the alarm once or repeat?")
+    repeat = takecommand()
+    if "once" in repeat:
+        while True:
+            if current_time.hour == hour and current_time.minute == minute:
+                speak("the alarm is ringing")
+                break
+            else:
+                continue
+    elif "repeat" in repeat:
+        while True:
+            if current_time.hour == hour and current_time.minute == minute:
+                speak("the alarm is ringing")
+                break
+            else:
+                continue
+
+
+"""call a friend"""
+
+
+def message(number):
+    speak("what is the number or who is the person you want to message?")
+    number = takecommand()
+    number = number.replace("/", "")
+    number = number.replace(" ", "")
+    number = number.replace("-", "")
+    print(number)
+    speak("what do you want to message?")
+    os.system(f"start chrome https://wa.me/{number}")
+    time.sleep(4)
+    message = takecommand()
+    pyautogui.write(f"{message}")
+    time.sleep(1)
+    pyautogui.press("enter")  # press enter to call
+
+
+"""message specific person"""
+
+
+def messages(number):
+    number = number.replace("/", "")
+    number = number.replace(" ", "")
+    number = number.replace("-", "")
+    print(number)
+    speak("what do you want to message?")
+    os.system(f"start chrome https://wa.me/{number}")
+    time.sleep(4)
+    message = takecommand()
+    pyautogui.write(f"{message}")
+    time.sleep(1)
+    pyautogui.press("enter")  # press enter to call
 
 
 def takecommand():
@@ -290,7 +497,7 @@ def func():
         query = takecommand()
 
         if "wake up natalia" in query or "wake up" in query:
-            speak("i am already online sir!")
+            speak("hello sir!")
 
         elif (
             "please create a new note" in query
@@ -322,7 +529,7 @@ def func():
             or "check my to do" in query
             or "read my to do list" in query
         ):
-            speak("The items on your to do list are the following")
+            speak("here is your to do list")
             for item in todo_list:
                 speak(item)
 
@@ -376,14 +583,7 @@ def func():
             or "do you know what date is today" in query
             or "day" in query
         ):
-            dates()
-
-        elif (
-            "what time is it" in query
-            or "do you know what time is it" in query
-            or "time" in query
-        ):
-            clocks()
+            date()
 
         elif "close google" in query:
             speak("closing")
@@ -397,20 +597,12 @@ def func():
             chrome()
 
         elif (
-            "open youtube" in query
-            or "can you open youtube for me" in query
-            or "youtube" in query
-            or "open youtube natalya" in query
-        ):
-            youtube()
-
-        elif (
             "open spotify" in query
             or "can you open spotify for me" in query
             or "open spotify natalya" in query
             or "i want to hear some music" in query
         ):
-            speak("openning your spotify")
+            speak("opening spotify")
             os.system("spotify")
             time.sleep(4)
             keyboard.press("space bar")
@@ -469,17 +661,115 @@ def func():
             or "i want to start meeting" in query
             or "start meeting" in query
         ):
-            os.system("Zoom_launcher")
+            os.system("start Zoom meeting")
 
-        elif "search" in query:
-            speak("what do you want to search sir")
+        elif "who is" in query:
             searchs = takecommand().lower()
+            query = query.replace("search", "")
+            query = query.replace("who is", "")
+            query = query.replace("what is", "")
             search = f"{searchs}"
             url = f"https://www.google.com/search?q={search}"
-            r = requests.get(url)
-            data = BeautifulSoup(r.content, "html5lib")
-            answer = data.find("div")
-            speak(f"{answer}")
+            answer = wikipedia.summary(search, 2)
+            print(answer)
+            speak(answer)
+
+        # elif "search":
+        # speak("what do you want to search sir")
+        # searchs = takecommand().lower()
+        # search = f"{searchs}"
+        # url = f"https://www.google.com/search?q=" + search
+        # r = requests.get(url)
+        # soup = BeautifulSoup(r.text, "html.parser")
+        # result = soup.find("div", class_="BNeawe").text
+        # print(result)
+        # speak(result)
+
+        elif "tutorial" in query or "i want to search tutorial" in query:
+            speak("what tutorial do you want to search sir")
+            how = takecommand().lower()
+            max_result = 1
+            how_to = search_wikihow(how, max_result)
+            assert len(how_to) == 1
+            how_to[0].print()
+            speak(how_to[0].summary)
+
+        elif "open whatsapp" in query:
+            speak("openning whatsapp")
+            os.system("WhatsApp.exe")
+
+        elif "close whatsapp" in query:
+            speak("closing")
+            os.system("TASKKILL /F /IM Whatsapp.exe")
+
+        elif "open facebook" in query:
+            speak("openning facebook")
+            webbrowser.open("https://www.facebook.com/")
+
+        elif "open instagram" in query:
+            speak("openning instagram")
+            webbrowser.open("https://www.instagram.com/")
+
+        elif "open twitter" in query:
+            speak("openning twitter")
+            webbrowser.open("https://www.twitter.com/")
+
+        elif "open youtube" in query:
+            speak("openning youtube")
+            webbrowser.open("https://www.youtube.com/")
+
+        elif "open google" in query:
+            speak("openning google")
+            webbrowser.open("https://www.google.com/")
+
+        elif "open new tab" in query:
+            speak("openning new tab")
+            webbrowser.open_new_tab("https://www.google.com/")
+
+        elif "time" in query:
+            clock()
+
+        elif "open gmail" in query:
+            speak("openning gmail")
+            webbrowser.open("https://www.gmail.com/")
+
+        elif "current project folder" in query or "current project file" in query:
+            speak("opening current project folder")
+            my_files()
+
+        elif "open my camera" in query or "camera" in query:
+            camera()
+
+        elif "classroom" in query or "class" in query:
+            classroom()
+
+        elif "close camera" in query:
+            close_camera()
+
+        elif "notepad" in query or "open notepad" in query:
+            notepad()
+
+        elif "close notepad" in query:
+            close_notepad()
+
+        elif "search" in query:
+            searchss()
+
+        elif "open discord" in query:
+            discord()
+
+        elif "close discord" in query:
+            close_discord()
+
+        elif "message rio" in query:
+            messages("+6282124650547")
+
+        elif "message hadrian" in query:
+            messages("+6281319965080")
+
+        elif "open canva" in query:
+            speak("openning canva")
+            webbrowser.open("https://www.canva.com/")
 
         elif "sleep now" in query or "sleep" in query:
             speak("okay sir, you can call me anytime!")
@@ -489,7 +779,6 @@ def func():
 wishme()
 func()
 
-
 if __name__ == "__main__":
     while True:
         permission = takecommand()
@@ -498,3 +787,4 @@ if __name__ == "__main__":
             func()
         elif "goodbye" in permission:
             quit()
+
