@@ -1,10 +1,11 @@
-from pyexpat.errors import messages
+from re import A
 from neuralintents import GenericAssistant
 import speech_recognition as sr
 import pyttsx3 as tts
 import datetime
 import sys
 from datetime import datetime
+from telegram import EncryptedPassportElement
 import wikipedia
 import webbrowser
 import os
@@ -18,6 +19,11 @@ from googlesearch import search
 import cv2
 import numpy as np
 import pyautogui
+import pyjokes
+import random
+import hashlib
+import playsound
+import threading
 
 recognizer = sr.Recognizer()
 speaker = tts.init()
@@ -246,10 +252,10 @@ def spotify():
         speak("opening spotify")
         os.system("spotify")
         time.sleep(4)
-        keyboard.press("space bar")
+        pyautogui.press("space bar")
 
     elif "start spotify" in query or "stop spotify" in query:
-        keyboard.press("space bar")
+        pyautogui.press("space bar")
 
     elif "close spotify" in query:
         os.system("TASKKILL /F /IM spotify.exe")
@@ -365,9 +371,9 @@ def photo():
     os.system("start microsoft.windows.camera:")
     speak("taking photo")
     time.sleep(3)
-    keyboard.press("space bar")
+    pyautogui.press("space bar")
     time.sleep(3)
-    keyboard.press("enter")
+    pyautogui.press("enter")
 
 
 """make a note"""
@@ -491,6 +497,203 @@ def takecommand():
         return listen
 
 
+"""enviroment setup"""
+
+
+def enviroment():
+    speak("setting up your enviroment sir!")
+    speak("installing dependencies")
+    os.system("pip install -r requirements.txt")
+    speak("dependencies installed")
+    speak("installing python-telegram-bot")
+    os.system("pip install python-telegram-bot")
+    speak("python-telegram-bot installed")
+    speak("installing pyttsx3")
+    os.system("pip install pyttsx3")
+    speak("pyttsx3 installed")
+    speak("installing speech recognition")
+    os.system("pip install speechrecognition")
+    speak("speech recognition installed")
+    speak("installing pyaudio")
+    os.system("pip install pyaudio")
+    speak("pyaudio installed")
+    speak("installing pywin32")
+    os.system("pip install pywin32")
+    speak("pywin32 installed")
+    speak("installing pyautogui")
+    os.system("pip install pyautogui")
+    speak("pyautogui installed")
+    speak("installing wikipedia")
+    os.system("pip install wikipedia")
+    speak("wikipedia installed")
+    speak("installing bs4")
+    os.system("pip install bs4")
+    speak("bs4 installed")
+    speak("installing cv2")
+    os.system("pip install cv2")
+    speak("cv2 installed")
+    speak("installing os")
+    os.system("pip install os")
+    speak("os installed")
+    speak("installing webbrowser")
+    os.system("pip install webbrowser")
+    speak("webbrowser installed")
+    speak("installing smtplib")
+    os.system("pip install smtplib")
+    speak("smtplib installed")
+    speak("installing googlesearch")
+    os.system("pip install googlesearch")
+    speak("googlesearch installed")
+    speak("installing time")
+    os.system("pip install time")
+    speak("time installed")
+    speak("installing pywikihow")
+    os.system("pip install pywikihow")
+    speak("pywikihow installed")
+    speak("installing pyjokes")
+    os.system("pip install pyjokes")
+    speak("pyjokes installed")
+
+
+"""play a jokes"""
+
+
+def jokes():
+    speak("haha here is a joke")
+    joke = pyjokes.get_joke()
+    speak(joke)
+
+
+"""open adobe premiere pro"""
+
+
+def premiere():
+    speak("opening adobe premiere pro")
+    os.startfile(
+        "C:\Program Files\Adobe\Adobe Premiere Pro 2021\Adobe Premiere Pro.exe"
+    )  # open adobe premiere pro""
+
+
+"""generate a random number"""
+
+
+def random_number():
+    speak("generating a random number")
+    number = random.randint(1, 100)
+    print(number)
+    speak(f"your random number is {number}")
+
+
+"""generate password"""
+
+
+def password():
+    speak("how long do you want your password to be")
+    length = takecommand()
+    length = int(length)
+    speak("what do you want to use for your password")
+    password = takecommand()
+    password = password.split()
+    password = "".join(password)
+    password = password * length
+    print(password)
+    speak(f"your password is {password}")
+
+
+"""generate an encrypted password"""
+
+
+def encrypt():
+    speak("what is the password you want to encrypt")
+    password = takecommand()
+    password = password.split()
+    password = "".join(password)
+    password = password.encode()
+    password = hashlib.sha256(password).hexdigest()
+    print(password)
+    speak(f"your encrypted password is {password}")
+
+
+"""decrypt an encrypted password"""
+
+
+def decrypt(encrypted_password):
+    encrypted_password = encrypted_password.split()
+    encrypted_password = "".join(encrypted_password)
+    encrypted_password = encrypted_password.encode()
+    encrypted_password = hashlib.sha256(encrypted_password).hexdigest()
+    print(encrypted_password)
+    speak(f"your decrypted password is {encrypted_password}")
+
+
+"""listen to the user"""
+
+
+def listenss():
+    speak("listening")
+    os.system("start chrome https://www.google.com/")
+    time.sleep(4)
+    speak("what do you want to search for?")
+    search = takecommand()
+    search = search.split()
+    search = " ".join(search)
+    print(search)
+    speak(f"searching for {search}")
+    os.system(f"start chrome https://www.google.com/search?q={search}")
+
+
+"""open camera"""
+
+
+def camera():
+
+    vid = cv2.VideoCapture(0)
+
+    while True:
+
+        # Capture the video frame
+        # by frame
+        ret, frame = vid.read()
+
+        # Display the resulting frame
+        cv2.imshow("frame", frame)
+
+        # the 'q' button is set as the
+        # quitting button you may use any
+        # desired button of your choice
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+
+    # After the loop release the cap object
+    vid.release()
+    # Destroy all the windows
+    cv2.destroyAllWindows()
+
+
+"""code for sending mail"""
+
+
+def send_mail():
+    email = "danielkri.photography@gmail.com"
+    password = "gendatzbesar"
+    speak("what is the email address you want to send the message to")
+    to = "rionardosupardy123@gmail.com"
+    speak("what is the subject of the message")
+    subject = "test"
+    speak("what is the message you want to send")
+    message = "ngetest kecerdasan rio"
+    speak("sending mail")
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(email, password)
+        server.sendmail(email, to, message)
+        server.quit()
+        speak("mail sent successfully")
+    except:
+        speak("mail not sent")
+
+
 def func():
 
     while True:
@@ -605,18 +808,18 @@ def func():
             speak("opening spotify")
             os.system("spotify")
             time.sleep(4)
-            keyboard.press("space bar")
+            pyautogui.press("space bar")
 
         elif "start spotify" in query or "stop spotify" in query:
-            keyboard.press("space bar")
+            pyautogui.press("space bar")
 
         elif "volume up" in query:
             os.system("spotify")
-            keyboard.press("ctrl + up arrow")
+            pyautogui.press("ctrl + up arrow")
 
         elif "volume down" in query:
             os.system("spotify")
-            keyboard.press("ctrl + down arrow")
+            pyautogui.press("ctrl + down arrow")
 
         elif "close spotify" in query:
             speak("closing")
@@ -771,11 +974,19 @@ def func():
             speak("openning canva")
             webbrowser.open("https://www.canva.com/")
 
+        elif "tell me a jokes" in query or "jokes" in query:
+            jokes()
+
+        elif "generate random number" in query or "random number" in query:
+            random_number()
+
         elif "sleep now" in query or "sleep" in query:
             speak("okay sir, you can call me anytime!")
             break
 
 
+# enviroment()
+send_mail()
 wishme()
 func()
 
