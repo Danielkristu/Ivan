@@ -25,7 +25,7 @@ with open(
 
 
 def detect():
-    wCam, hCam = 1280, 720
+    wCam, hCam = 1920, 1080
     cap = cv2.VideoCapture(0)
     cap.set(3, wCam)
     cap.set(4, hCam)
@@ -143,11 +143,11 @@ def detect():
                 body_language_prob = model.predict_proba(X)[0]
                 print(f"{body_language_class}")
 
-                classname = body_language_class
-                if classname == "Happy":
-                    print("ini Happy")
-                elif classname == "Sad":
-                    print("ini Sad")
+                # classname = body_language_class
+                # if classname == "Happy":
+                #    print("ini Happy")
+                # elif classname == "Sad":
+                #      print("ini Sad")
 
                 # Grab ear coords
                 coords = tuple(

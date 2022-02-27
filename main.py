@@ -20,8 +20,9 @@ import pyjokes
 import random
 import hashlib
 import mediapipe as mp
+from Detectmod import detect
 from Trainmodel import TrainMod
-from Learnmodel import LearnMod
+from Learnmodel import LearnMod, csv_coords_new_file
 import cv2  # Import opencv
 import csv
 import os
@@ -841,15 +842,6 @@ def DetectModel():
                 body_language_prob = model.predict_proba(X)[0]
                 print(f"{body_language_class}")
 
-                classname = body_language_class
-                for i in classname:
-                    if i == "Happy":
-                        print("you are happy")
-                        speak("you are happy")
-                    elif i == "sad":
-                        print("your face is sad")
-                        speak("your face is sad")
-
                 # Grab ear coords
                 coords = tuple(
                     np.multiply(
@@ -1129,17 +1121,6 @@ def func():
             print(answer)
             speak(answer)
 
-        # elif "search":
-        # speak("what do you want to search sir")
-        # searchs = takecommand().lower()
-        # search = f"{searchs}"
-        # url = f"https://www.google.com/search?q=" + search
-        # r = requests.get(url)
-        # soup = BeautifulSoup(r.text, "html.parser")
-        # result = soup.find("div", class_="BNeawe").text
-        # print(result)
-        # speak(result)
-
         elif "tutorial" in query or "i want to search tutorial" in query:
             speak("what tutorial do you want to search sir")
             how = takecommand().lower()
@@ -1244,9 +1225,13 @@ def func():
             LearnMod(f"{class_name}")
 
         elif "open detection" in query:
-            speak("opening detection")
             speak("wait a second")
-            DetectModel()
+            detect()
+
+        elif "clear model file" in query:
+            speak("wait a second")
+            csv_coords_new_file()
+            speak("your model file have been cleared")
 
         elif (
             "close detection" in query
@@ -1262,7 +1247,7 @@ def func():
 
 # enviroment()
 wishme()
-DetectModel()
+func()
 
 if __name__ == "__main__":
     while True:

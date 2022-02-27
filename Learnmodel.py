@@ -1,4 +1,5 @@
 from trace import Trace
+from cv2 import waitKey
 import mediapipe as mp  # Import mediapipe
 import cv2  # Import opencv
 import csv
@@ -7,6 +8,8 @@ import numpy as np
 import pandas as pd
 import pickle
 import pandas as pd
+import time
+import pyautogui
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -135,7 +138,7 @@ def csv_coords_new_file():
 
 
 def LearnMod(class_name_var):
-    wCam, hCam = 1280, 720
+    wCam, hCam = 1980, 1080
     cap = cv2.VideoCapture(0)
     cap.set(3, wCam)
     cap.set(4, hCam)
@@ -272,9 +275,10 @@ def LearnMod(class_name_var):
             except:
                 pass
 
-            cv2.imshow("Raw Webcam Feed", image)
+            # Display
+            cv2.imshow("Model Frame", image)
 
-            if cv2.waitKey(10) & 0xFF == ord("q"):
+            if waitKey(5) & 0xFF == ord("q"):
                 break
 
 

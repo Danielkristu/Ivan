@@ -50,6 +50,3 @@ def TrainMod():
     ) as f:
         pickle.dump(fit_models["lr"], f)
 
-    print(y_test)
-
-
